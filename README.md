@@ -96,26 +96,76 @@
 
 ```
 Wedding_Gallery_System/
+│
 ├── backend/
-│   ├── controllers/        # Route handler logic
-│   ├── middleware/         # Auth & error middleware
-│   ├── models/             # Mongoose schemas
-│   ├── routes/             # API route definitions
-│   ├── utils/              # Helpers (cloudinary config, etc.)
-│   ├── .env                # Environment variables (not committed)
-│   ├── server.js           # Entry point
+│   ├── config/
+│   │   ├── db.js                  # MongoDB connection
+│   │   └── cloudinary.js          # Cloudinary setup
+│   │
+│   ├── models/
+│   │   ├── User.js                # Photographer schema
+│   │   ├── Gallery.js             # Gallery schema
+│   │   └── Photo.js               # Photo schema
+│   │
+│   ├── controllers/
+│   │   ├── authController.js      # Register & login logic
+│   │   ├── galleryController.js   # Gallery CRUD logic
+│   │   └── photoController.js     # Photo upload & delete logic
+│   │
+│   ├── routes/
+│   │   ├── authRoutes.js          # /api/auth
+│   │   ├── galleryRoutes.js       # /api/gallery
+│   │   └── photoRoutes.js         # /api/photos
+│   │
+│   ├── middleware/
+│   │   └── authMiddleware.js      # JWT verification
+│   │
+│   ├── utils/
+│   │   ├── generateCode.js        # Unique access code generator
+│   │   └── upload.js              # Multer + Cloudinary storage
+│   │
+│   ├── server.js                  # Express entry point
+│   ├── .env                       # Environment variables (not committed)
 │   └── package.json
 │
 ├── frontend/
-│   ├── public/             # Static assets
+│   ├── public/
+│   │   └── index.html
+│   │
 │   ├── src/
-│   │   ├── components/     # Reusable UI components
-│   │   ├── pages/          # Route-level page components
-│   │   ├── context/        # React context (auth state)
-│   │   ├── services/       # Axios API calls
-│   │   └── App.jsx         # Root component
-│   ├── .env                # Frontend env variables (not committed)
-│   ├── index.html
+│   │   ├── pages/
+│   │   │   ├── Login.jsx          # Photographer login
+│   │   │   ├── Register.jsx       # Photographer register
+│   │   │   ├── Dashboard.jsx      # Admin gallery overview
+│   │   │   ├── CreateGallery.jsx  # Create new gallery + access code
+│   │   │   ├── UploadPhotos.jsx   # Upload & categorize photos
+│   │   │   ├── AccessGallery.jsx  # Client enters access code
+│   │   │   └── GalleryView.jsx    # Client views photos by category
+│   │   │
+│   │   ├── services/
+│   │   │   ├── api.js             # Axios base instance
+│   │   │   ├── authService.js     # Auth API calls
+│   │   │   ├── galleryService.js  # Gallery API calls
+│   │   │   └── photoService.js    # Photo API calls
+│   │   │
+│   │   ├── context/
+│   │   │   └── AuthContext.jsx    # Global auth state
+│   │   │
+│   │   ├── routes/
+│   │   │   ├── AppRoutes.jsx      # All route definitions
+│   │   │   └── ProtectedRoute.jsx # Guard for admin-only routes
+│   │   │
+│   │   ├── utils/
+│   │   │   ├── downloadImage.js   # Client-side photo download helper
+│   │   │   └── formatDate.js      # Date formatting helper
+│   │   │
+│   │   ├── styles/
+│   │   │   └── index.css          # Global styles + Tailwind directives
+│   │   │
+│   │   ├── App.jsx                # Root component
+│   │   └── main.jsx               # Vite entry point
+│   │
+│   ├── .env                       # Frontend env variables (not committed)
 │   └── package.json
 │
 ├── .gitignore
@@ -169,14 +219,13 @@ npm install
 ```env
 PORT=5000
 MONGODB_URI=mongodb://localhost:27017/wedding-gallery
+JWT_SECRET=mySuperSecretKey123!@#2024WeddingGallery
 
-JWT_SECRET=your_own_strong_secret_key_here
-
-CLOUDINARY_CLOUD_NAME=your_cloud_name
-CLOUDINARY_API_KEY=your_api_key
-CLOUDINARY_API_SECRET=your_api_secret
+CLOUDINARY_CLOUD_NAME=dfkpd0ft7
+CLOUDINARY_API_KEY=551847547182297
+CLOUDINARY_API_SECRET=CPxqWkuGSsF7BO3_UN78Hd3cqQM
 ```
-
+   
 #### Frontend — `frontend/.env`
 
 ```env
@@ -292,6 +341,6 @@ This project is licensed under the [MIT License](LICENSE) — feel free to use, 
 
 <div align="center">
 
-Made in Rovynex solution LTD  
+Made in Rovynex Solution LTD 2026
 
 </div>
